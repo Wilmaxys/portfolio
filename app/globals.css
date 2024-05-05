@@ -16,18 +16,108 @@
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+}
+
+body {
+  font-family: "Kanit", sans-serif;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #eeeeee;
+  background-color: #282c34;
+}
+
+.card {
+  border: 5px solid #ffffff22;
+  cursor: pointer;
+}
+
+.card-hover:hover {
+  border: 5px solid #ffffff44;
+  filter: brightness(1.1);
+  -webkit-font-smoothing: subpixel-antialiased;
+  transform: scale(1.05);
+}
+
+.card-background {
+  background-color: #282c34;
+  background: linear-gradient(
+    0deg,
+    rgba(40, 44, 52, 1) 0%,
+    rgba(1, 34, 20, 0.5) 100%
+  );
+  background-origin: border-box;
+}
+
+.background-dot {
+  --dot-bg: #282c34;
+  --dot-color: #79db88;
+  --dot-size: 1px;
+  --dot-space: 12px;
+  background: linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      center / var(--dot-space) var(--dot-space),
+    var(--dot-color);
+}
+
+.fancy-text {
+  --stripe-step: 1.2vmax;
+  --stripe-tiny-step: 0.5vmax;
+  --stripe-offset: calc(var(--stripe-step) * 0.75);
+
+  position: relative;
+  width: 100%;
+  height: 1em;
+  font-family: "Fredoka One", cursive;
+  line-height: 1;
+  text-align: center;
+
+  &__text,
+  &::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 99%;
+    mask-image: repeating-linear-gradient(
+      -45deg,
+      black 0,
+      black var(--stripe-step),
+      transparent 0,
+      transparent calc(var(--stripe-step) * 2)
+    );
+    mask-position: 0 0;
+    mask-size: 120% 120%;
+  }
+
+  &__text {
+    left: 0;
+    top: 0;
+    color: darkturquoise;
+  }
+
+  &::before {
+    content: attr(data-text);
+  }
+
+  &::before {
+    left: var(--stripe-offset);
+    bottom: var(--stripe-offset);
+    mask-position: var(--stripe-offset) var(--stripe-offset);
+    color: aquamarine;
   }
 }
